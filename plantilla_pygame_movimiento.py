@@ -28,12 +28,12 @@ pygame.display.set_caption("Movimiento con teclado")
 # -------------------------------------------------------
 objeto_x = ANCHO // 2   # posición horizontal inicial (centro)
 objeto_y = ALTO  // 2   # posición vertical inicial (centro)
-velocidad = 4           # píxeles que se mueve por fotograma
+velocidad = 15           # píxeles que se mueve por fotograma
 
 # -------------------------------------------------------
 # TAMAÑO del objeto (modifícalo a tu gusto)
 # -------------------------------------------------------
-RADIO = 25              # radio del círculo que usamos como objeto
+RADIO = 30              # radio del círculo que usamos como objeto
 
 # --- Bucle principal ---
 hecho = False
@@ -65,22 +65,32 @@ while not hecho:
     objeto_y = max(RADIO, min(ALTO  - RADIO, objeto_y))
 
     # 3) Fondo de la pantalla (borra el fotograma anterior)
-    pantalla.fill(BLANCO)
+    pantalla.fill(AMARILLO)
+    
 
     # -------------------------------------------------------
     # 4) DIBUJA AQUÍ TU OBJETO
     # -------------------------------------------------------
 
     # Círculo como objeto móvil
-    pygame.draw.circle(pantalla, AZUL, (objeto_x, objeto_y), RADIO)
-    pygame.draw.circle(pantalla, NEGRO, (objeto_x, objeto_y), RADIO, 2)  # borde
+    pygame.draw.circle(pantalla, VERDE, (objeto_x, objeto_y), RADIO)
+    pygame.draw.circle(pantalla, AZUL, (objeto_x, objeto_y), RADIO, 2)  # borde
+    
+    # --- CARITA DENTRO DEL CÍRCULO ---
+    
+    # Ojos (puntos negros)
+    pygame.draw.circle(pantalla, AZUL, (objeto_x - 10, objeto_y - 5), 4) # Ojo izq
+    pygame.draw.circle(pantalla, AZUL, (objeto_x + 10, objeto_y - 5), 4) # Ojo der
+    
+    # Boca (un pequeño rectángulo o línea)
+    pygame.draw.rect(pantalla, NEGRO, [objeto_x - 8, objeto_y + 10, 16, 3])
 
     # Puedes sustituirlo por un rectángulo:
     # pygame.draw.rect(pantalla, ROJO, [objeto_x - 25, objeto_y - 25, 50, 50])
 
     # Mostrar la posición actual como texto (útil para depurar)
     fuente = pygame.font.SysFont("Arial", 18)
-    info = fuente.render(f"x={objeto_x}  y={objeto_y}   (flechas o WASD para mover)", True, NEGRO)
+    info = fuente.render(f"x={objeto_x}  y={objeto_y}   (flechas o WASD para mover)", True, ROJO)
     pantalla.blit(info, [10, 10])
 
     # -------------------------------------------------------
@@ -91,3 +101,4 @@ while not hecho:
 
 # --- Salir de Pygame ---
 pygame.quit()
+
